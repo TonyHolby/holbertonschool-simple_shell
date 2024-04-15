@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Obtenir une liste des IDs de processus
+pid_list=$(ps -eo pid --no-headers)
+
+# Initialiser la variable max_pid avec la valeur 0
+max_pid=0
+
+# Parcourir la liste des IDs de processus
+for pid in $pid_list; do
+    # Si l'ID de processus actuel est supérieur au max_pid actuel,
+    # mettre à jour max_pid avec cet ID de processus
+    if [ $pid -gt $max_pid ]; then
+        max_pid=$pid
+    fi
+done
+
+# Afficher le résultat
+echo "Maximum PID: $max_pid"
+
