@@ -1,0 +1,10 @@
+#!/bin/bash
+
+arguments=0
+
+for arg in "$@"; do
+    echo "$arg"
+    ((arguments++))
+done
+echo "Nombre d'arguments : $arguments"
+
