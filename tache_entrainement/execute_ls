@@ -1,0 +1,12 @@
+#!/bin/bash
+
+create_child()
+{
+    ls -l /tmp
+    exit
+}
+
+for i in {1..5};
+do
+create_child & wait $!
+done

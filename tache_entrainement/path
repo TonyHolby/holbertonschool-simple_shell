@@ -6,7 +6,7 @@ if [ $# -eq 0 ]; then
 fi
 
 for file in "$@"; do
-    IFS=":" # Set the Internal Field Separator to ":"
+    IFS=":"
     for dir in $PATH; do
         if [ -x "$dir/$file" ]; then
             echo "$dir/$file"
