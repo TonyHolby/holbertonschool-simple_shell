@@ -1,22 +1,30 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main() {
-    char *line = NULL;
-    size_t len = 0;
-    ssize_t read;
+/**
+ * main - prints "$ ", wait for the user to enter a command
+ *
+ * Return: Always 0
+ */
 
-    while (1) {
-        printf("$ ");
-        read = getline(&line, &len, stdin);
-        if (read == -1) {
-            // If an error occurs or end-of-file is reached
-            printf("Goodbye!\n");
-            break;
-        }
-        printf("%s", line);
-    }
+int main(void)
+{
+char *line = NULL;
+size_t len = 0;
+ssize_t read;
 
-    free(line);
-    return 0;
+while (1)
+{
+printf("$ ");
+read = getline(&line, &len, stdin);
+if (read == -1)
+{
+printf("Goodbye!\n");
+break;
+}
+printf("%s", line);
+}
+
+free(line);
+return (0);
 }

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 filename ..."
+    exit 1
+fi
+
+for file in "$@"; do
+    IFS=":" # Set the Internal Field Separator to ":"
+    for dir in $PATH; do
+        if [ -x "$dir/$file" ]; then
+            echo "$dir/$file"
+            found=true
+            break
+        fi
+    done
+
+    if [ -z "$found" ]; then
+        echo "$file: command not found"
+    fi
+    unset found
+done
