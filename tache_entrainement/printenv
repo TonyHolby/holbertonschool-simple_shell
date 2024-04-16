@@ -1,0 +1,6 @@
+#!/bin/bash
+
+for var in $(env);
+do
+	echo "$var"
+done
