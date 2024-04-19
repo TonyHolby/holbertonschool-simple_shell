@@ -11,15 +11,17 @@
 
 int main(void)
 {
-        char *line = NULL;
+        pid_t pid;
+	char *line = NULL;
         size_t len = 0;
         ssize_t input_prompt = 0;
+	char *argv[] = {"/bin/sh", NULL};
+	int status;
 
         while (input_prompt != -1)
         {
                 printf("#cisfun$ ");
 		input_prompt = getline(&line, &len, stdin);
-                pid_t pid;
 
                 pid = fork();
 		if (pid < 0 )
@@ -29,16 +31,12 @@ int main(void)
 		}
 		else if (pid == 0)
 		{
-			char *argv[] = {"sh", "-c", line, NULL};
-
-			execve("/bin/sh", argv, NULL);
+			execve(argv[0], argv, NULL);
 			perror("execve fail");
 			exit(-1);
 		}
 		else
 		{
-			int status;
-
 			wait(&status);
 		}
 
