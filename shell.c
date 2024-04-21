@@ -92,7 +92,6 @@ int main(int ac, char **argv, char **env)
 			token = strtok(path, ":");
 			while (token != NULL)
 			{
-				printf("%s/%s\n", token, argv[0]);
 				sprintf(command_path, "%s/%s", token, argv[0]);
 				if (access(command_path, X_OK) == 0)
 				{
