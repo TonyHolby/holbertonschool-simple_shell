@@ -49,7 +49,7 @@ Testing
 Flowchart
 ------
 
-....
+![Flowchart - _printf function drawio](https://github.com/TonyHolby/holbertonschool-simple_shell/simple_shell.drawio)
 
 ------
 Authors
