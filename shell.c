@@ -1,35 +1,55 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <string.h>
+#include <sys/wait.h>
 
-#define COMMAND_MAX_LENGTH 1024
-
-/**
- * main - Displays a prompt and waits for the user to type a command.
- * then executes the command the user has typed.
- *
- * Return: Always 0
- */
+#define MAX_COMMAND_LENGTH 1024
 
 int main(void)
 {
-	char command[COMMAND_MAX_LENGTH];
+	char *command;
+	size_t command_len = MAX_COMMAND_LENGTH;
+
+	command = (char *)malloc(command_len * sizeof(char));
+    
+	if (command == NULL)
+	{
+		perror("Memory allocation error");
+		exit(EXIT_FAILURE);
+	}
 
 	while (1)
 	{
-		printf("#simple_shell$ ");
-		if (fgets(command, sizeof(command), stdin) == NULL)
+		if (isatty(STDIN_FILENO))
+			printf("#simple_shell$ ");
+
+		ssize_t read = getline(&command, &command_len, stdin);
+
+		if (read == -1)
 		{
-			printf("End of prompt!\n");
 			break;
 		}
-		command[strcspn(command, "\n")] = '\0';
-		if (system(command) == -1)
+		command[read - 1] = '\0';
+		pid_t pid = fork();
+
+		if (pid < 0)
 		{
-			fprintf(stderr, "Erreur : commande introuvable\n");
+			perror("Fork failed");
+			exit(EXIT_FAILURE);
+		}
+		else if (pid == 0)
+		{
+			char *args[] = {command, NULL};
+			execve(command, args, NULL);
+			perror("Execve failed");
+			exit(EXIT_FAILURE);
+		}
+		else
+		{
+			wait(NULL);
 		}
 	}
 
-	return (0);
+	free(command);
+	return 0;
 }
