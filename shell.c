@@ -43,7 +43,6 @@ int main(void)
 
 		if (read == -1)
 		{
-			printf("\n");
 			break;
 		}
 		if (read == 1)
