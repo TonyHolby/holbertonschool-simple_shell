@@ -48,6 +48,9 @@ int main(void)
 		{
 			args[0] = command;
 			args[1] = NULL;
+
+			if (command == "\n")
+				exit(EXIT_FAILURE);
 			execve(command, args, NULL);
 			perror("Execve failed");
 			exit(EXIT_FAILURE);
