@@ -1,8 +1,41 @@
 NAME
 
+	shell
+
 SYNOPSIS
+
+	#include <stdio.h>
+	#include <stdlib.h>
+	#include <string.h>
+	#include <unistd.h>
+	#include <sys/types.h>
+	#include <sys/wait.h>
+	#include <signal.h>
 
 DESCRIPTION
 
+	the shell function displays a prompt waiting for the user to type a command before executing it.
+	The prompt is re-displayed each time a command has been executed. the "end of file" condition is handled by Ctrl+D, which terminates the function
+	it can be used in interactive or non-interactive mode
+
+EXAMPLES OF USAGE:
+
+	$ ./shell
+	/bin/ls
+	/bin/pwd
+	$ echo "/bin/ls" | ./shell
+	$ echo "/bin/pwd" | ./shell
+
+RETURN VALUE
+
+	the shell function will always return 0 but the output values are different for errors
+
+	EXAMPLE OF OUTPUT ERRORS:		
+
+ERRORS
+
+	If an executable cannot be found, print an error message and display the prompt again.
+
 AUTHORS
+
 GLE Rosario, NEMOUTHE Tony
