@@ -47,10 +47,6 @@ int main(void)
 			{
 				printf("\n");
 			}
-			else
-			{
-				exit(EXIT_FAILURE);
-			}
 			break;
 		}
 		if (read == 1)
