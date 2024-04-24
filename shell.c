@@ -4,80 +4,141 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include <signal.h>
-
-#define MAX_COMMAND_LENGTH 1024
-
-void sigint_handler(int signum)
-{
-	printf("\nSIGINT signal : %d.\n", signum);
-	exit(EXIT_FAILURE);
-}
 
 /**
- * main - Displays a prompt and waits for the user to type a command.
- * then executes the command typed by the user.
  *
- * Return: Always 0
+ *
  */
+int execute_command(char **argv)
+{
+    pid_t pid;
+    char *args[] = {NULL, NULL};
+    int status;
 
+
+    if (argv[0] != NULL)
+    {
+        pid = fork();
+        if (pid < 0)
+        {
+            perror("fork failed");
+            exit(EXIT_FAILURE);
+        }
+        else if (pid == 0)
+        {
+            args[0] = argv[0];
+            args[1] = NULL;
+            if (execve(args[0], args, NULL) == -1)
+            {
+                if (isatty(STDIN_FILENO))
+                {
+                    perror("./hsh");
+                    exit(EXIT_FAILURE);
+                }
+                else
+                {
+                    perror("execve failed");
+                    exit (EXIT_FAILURE);
+                }
+            }
+        }
+        else
+        {
+            waitpid(pid, &status, 0);
+        }
+    }
+    else
+    {
+        fprintf(stderr, ": %d : command not found : %s\n", 1, args[0]);
+        exit(EXIT_FAILURE);
+    }
+
+    return (0);
+}
+/**
+ *
+ *
+ */
+char **tokenize_command(char *line)
+{
+    char **command = NULL;
+    char *token;
+    int argc = 0;
+
+    token = strtok(line, "\n");
+    while (token != NULL)
+    {
+        command = realloc(command, (argc + 1) * sizeof(char));
+        if (command == NULL)
+        {
+            perror("Memory allocation error");
+            exit(EXIT_FAILURE);
+        }
+
+        command[argc] = strcpy(token, line);
+        if (command[argc] == NULL)
+        {
+            perror("Error copying token");
+            exit(EXIT_FAILURE);
+        }
+        argc++;
+        token = strtok(NULL, "\n");
+    }
+
+    command = realloc(command, (argc + 1) * sizeof(char));
+    if (command == NULL)
+    {
+        perror("Memory allocation error");
+        exit(EXIT_FAILURE);
+    }
+
+    command[argc] = NULL;
+
+    if (command[0] == NULL)
+    {
+        printf("\n");
+        exit(EXIT_FAILURE);
+    }
+
+    return (command);
+}
+/**
+ *
+ *
+ */
 int main(void)
 {
-	char *line = NULL;
-	size_t length = 0;
-	ssize_t read;
-	char *args[] = {NULL, NULL};
-	pid_t pid;
-	int status;
+        char *line = NULL;
+        size_t length = 0;
+        ssize_t read;
+        char **argv;
 
-	if (signal(SIGINT, sigint_handler) == SIG_ERR)
-	{
-		perror("Handler errors failed");
-		exit(EXIT_FAILURE);
-	}
-	while (1)
-	{
-		if (isatty(STDIN_FILENO))
-			printf("#simple_shell$ ");
-		read = getline(&line, &length, stdin);
+        while (1)
+        {
+                if (isatty(STDIN_FILENO))
+                        printf("$ ");
+                read = getline(&line, &length, stdin);
 
-		if (read == -1)
-		{
-			if (feof(stdin))
-			{
-				printf("\n");
-			}
-			break;
-		}
-		if (read == 1)
-		{
-			continue;
-		}
-		line[read - 1] = '\0';
-		pid = fork();
+                if (read == -1)
+                {
+                        break;
+                }
+                if (read == 1)
+                {
+                        continue;
+                }
 
-		if (pid < 0)
-		{
-			perror("Fork failed");
-			exit(EXIT_FAILURE);
-		}
-		else if (pid == 0)
-		{
-			args[0] = line;
-			args[1] = NULL;
-			execve(line, args, NULL);
-			perror("Execve failed");
-			exit(EXIT_FAILURE);
-		}
-		else
-		{
-			if (wait(&status) == -1)
-			{
-				perror("Wait failed");
-				exit(EXIT_FAILURE);
-			}
-		}
-	}
-	free(line);
-	return (0);
+        argv = tokenize_command(line);
+
+        if (argv != NULL)
+        {
+            execute_command(argv);
+        }
+    }
+
+    free(argv);
+    free(line);
+
+    return (0);
 }
+
