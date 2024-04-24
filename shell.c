@@ -43,6 +43,14 @@ int main(void)
 
 		if (read == -1)
 		{
+			if (feof(stdin))
+			{
+				printf("\n");
+			}
+			else
+			{
+				exit(EXIT_FAILURE);
+			}
 			break;
 		}
 		if (read == 1)
