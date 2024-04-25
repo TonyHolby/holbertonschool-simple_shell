@@ -59,7 +59,7 @@ standard shell#
 Flowchart
 ------
 
-![flowchart simple shell - C drawio](https://github.com/TonyHolby/holbertonschool-simple_shell/assets/159525275/f093b5ce-b2ef-478f-8661-d8c41b270a37)
+![Flowchart simple shell final drawio](https://github.com/TonyHolby/holbertonschool-simple_shell/assets/159525275/71ae1fa8-52dd-4285-8fa1-5f77f784559a)
 
 ------
 Authors
