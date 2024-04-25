@@ -13,10 +13,10 @@ char **tokenize_command(char *line)
 	char *token;
 	int argc = 0;
 
-	token = strtok(line, "\t\n");
+	token = strtok(line, "\n");
 	while (token != NULL)
 	{
-		command = realloc(command, (argc + 1) * sizeof(char *));
+		command = realloc(command, (argc + 1) * sizeof(char));
 		if (command == NULL)
 		{
 			perror("Memory allocation error");
@@ -30,9 +30,9 @@ char **tokenize_command(char *line)
 			exit(EXIT_FAILURE);
 		}
 		argc++;
-		token = strtok(NULL, "\t\n");
+		token = strtok(NULL, "\n");
 	}
-	command = realloc(command, (argc + 1) * sizeof(char *));
+	command = realloc(command, (argc + 1) * sizeof(char));
 	if (command == NULL)
 	{
 		perror("Memory allocation error");
