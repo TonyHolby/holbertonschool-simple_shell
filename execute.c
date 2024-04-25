@@ -12,7 +12,6 @@ int execute_command(char **argv)
 	pid_t pid;
 	char *args[] = {NULL, NULL};
 	int status;
-	char **env = NULL;
 
 	if (argv[0] != NULL)
 	{
@@ -26,10 +25,18 @@ int execute_command(char **argv)
 		{
 			args[0] = argv[0];
 			args[1] = NULL;
-			if (execve(args[0], args, env) == -1)
+			if (execve(args[0], args, NULL) == -1)
 			{
-				perror("execve failed");
-				exit(EXIT_FAILURE);
+				if (isatty(STDIN_FILENO))
+				{
+					perror("./hsh");
+					exit(EXIT_FAILURE);
+				}
+				else
+				{
+					perror("execve failed");
+					exit(EXIT_FAILURE);
+				}
 			}
 		}
 		else
@@ -43,3 +50,4 @@ int execute_command(char **argv)
 
 	return (0);
 }
+
