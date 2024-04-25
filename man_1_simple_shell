@@ -1,40 +1,52 @@
-NAME
+TH hsh 1 "April 25th 2024" "simple shell man page"
 
-	shell
+.SH NAME
 
-SYNOPSIS
+	hsh - Simple Shell
 
-	#include <stdio.h>
-	#include <stdlib.h>
-	#include <string.h>
-	#include <unistd.h>
-	#include <sys/types.h>
-	#include <sys/wait.h>
-	#include <signal.h>
+.SH SYNOPSIS
 
-DESCRIPTION
+	#include "shell.h"
+
+	Interactive mode
+	[command] [options] [arguments]
+
+	Non-interactive mode
+	[command] [options] [arguments] | ./hsh
+
+.SH DESCRIPTION
 
 	the shell function displays a prompt waiting for the user to type a command before executing it.
-	The prompt is re-displayed each time a command has been executed. the "end of file" condition is handled by Ctrl+D, which terminates the function
-	it can be used in interactive or non-interactive mode
+	The prompt is re-displayed each time a command has been executed.
+	The "end of file" condition is handled by Ctrl+D, which terminates the process.
+	It can be used in interactive or non-interactive mode.
 
-EXAMPLES OF USAGE:
+.SH EXAMPLES OF USAGE:
 
-	$ ./shell
-	/bin/ls
-	/bin/pwd
-	$ echo "/bin/ls" | ./shell
-	$ echo "/bin/pwd" | ./shell
+	Interactive mode
+	standard shell# ./hsh
+	$ ls
+	README.md man_1_simple_shell AUTHORS shell.c arguments.c execute.c shell.h
+	$ pwd
+	holbertonschool-simple_shell
+	$ 
+	$ exit
+	standard shell#
 
-RETURN VALUE
+	Non-iteractive mode
+	$ echo "/bin/ls" | ./hsh
+	README.md man_1_simple_shell AUTHORS shell.c arguments.c execute.c shell.h	
+	$ echo "/bin/pwd" | ./hsh
+	holbertonschool-simple_shell
 
-	the shell function will always return 0 but the output values are different for errors
+.SH RETURN VALUE
 
-	EXAMPLE OF OUTPUT ERRORS:		
+	the shell function will always return 0.
 
-ERRORS
+.SH ERRORS
 
-	If an executable cannot be found, print an error message and display the prompt again.
+	Error : EXIT_FAILURE in case of 1 termination process.
+	If an error occurs, the program prints an error message and display the prompt again.
 
 AUTHORS
 
