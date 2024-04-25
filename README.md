@@ -5,6 +5,11 @@ Description
 ------
 
 This project is an implementation of a simple shell.
+The shell function displays a prompt waiting for the user to type a command before executing it.
+An infinite loop is running until a failure signal stop the loop.
+The prompt is re-displayed each time a command has been executed.
+The "end of file" condition is handled by Ctrl+D, which terminates the process.
+It can be used in interactive or non-interactive mode.
 
 -------
 Requierments
@@ -17,6 +22,7 @@ Compilation
 ------
 
 The command to compil the program :
+
 gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
 
 ------
@@ -27,29 +33,33 @@ Here is some examples of the use of the simple shell in interactive mode :
 
 ```
 
-$ ./hsh
-\#simple_shell$ ls
+standard shell# ./hsh
+$ ls
 README.md man_1_simple_shell AUTHORS shell.c
-\#simple_shell$ pwd
+$ pwd
 holbertonschool-simple_shell
-\#simple_shell$ 
-\#simple_shell$ exit
-$
-
+$ 
+$ exit
+standard shell#
 
 ```
 
-------
-Testing
-------
+Here is some examples of the use of the simple shell in non-interactive mode :
 
-....
+```
 
+standard shell# echo "/bin/ls" | ./hsh
+README.md man_1_simple_shell AUTHORS shell.c arguments.c execute.c shell.h
+standard shell# echo "/bin/pwd" | ./hsh
+holbertonschool-simple_shell
+standard shell#
+
+```
 ------
 Flowchart
 ------
 
-![image](https://github.com/TonyHolby/holbertonschool-simple_shell/flowchart simple shell - C.drawio.png)
+![flowchart simple shell - C drawio](https://github.com/TonyHolby/holbertonschool-simple_shell/assets/159525275/f093b5ce-b2ef-478f-8661-d8c41b270a37)
 
 ------
 Authors
