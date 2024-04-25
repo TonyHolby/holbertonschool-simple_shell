@@ -18,9 +18,8 @@ int main(void)
 			printf("$ ");
 		read = getline(&line, &length, stdin);
 
-		if (feof(stdin))
+		if (read == -1)
 		{
-			printf("\n");
 			break;
 		}
 		if (read == 1)
