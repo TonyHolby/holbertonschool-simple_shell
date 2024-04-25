@@ -45,5 +45,8 @@ char **tokenize_command(char *line)
 		printf("\n");
 		exit(EXIT_FAILURE);
 	}
+	if (strcmp(command[0], "exit") == 0)
+		exit(EXIT_SUCCESS);
+
 	return (command);
 }
