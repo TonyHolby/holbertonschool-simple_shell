@@ -23,12 +23,12 @@ char **tokenize_command(char *line)
 			exit(EXIT_FAILURE);
 		}
 
+		command[argc] = strcpy(token, line);
 		if (command[argc] == NULL)
 		{
 			perror("Error copying token");
 			exit(EXIT_FAILURE);
 		}
-		command[argc] = strcpy(token, line);
 		argc++;
 		token = strtok(NULL, "\n");
 	}
