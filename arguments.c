@@ -30,7 +30,7 @@ char **tokenize_command(char *line)
 			exit(EXIT_FAILURE);
 		}
 		argc++;
-		token = strtok(NULL, "\n");
+		token = strtok(NULL, "\n"); /*extract line token*/
 	}
 	command = realloc(command, (argc + 1) * sizeof(char)); 
 	if (command == NULL)
