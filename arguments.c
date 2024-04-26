@@ -13,17 +13,17 @@ char **tokenize_command(char *line)
 	char *token;
 	int argc = 0;
 
-	token = strtok(line, "\n");
+	token = strtok(line, "\n"); /*stock arguments*/
 	while (token != NULL)
 	{
-		command = realloc(command, (argc + 1) * sizeof(char));
+		command = realloc(command, (argc + 1) * sizeof(char)); /*allocates memory*/
 		if (command == NULL)
 		{
 			perror("Memory allocation error");
 			exit(EXIT_FAILURE);
 		}
 
-		command[argc] = strcpy(token, line);
+		command[argc] = strdup(token); /*copy line in command*/
 		if (command[argc] == NULL)
 		{
 			perror("Error copying token");
@@ -32,7 +32,7 @@ char **tokenize_command(char *line)
 		argc++;
 		token = strtok(NULL, "\n");
 	}
-	command = realloc(command, (argc + 1) * sizeof(char));
+	command = realloc(command, (argc + 1) * sizeof(char)); 
 	if (command == NULL)
 	{
 		perror("Memory allocation error");
