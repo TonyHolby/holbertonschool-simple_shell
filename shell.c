@@ -14,26 +14,26 @@ int main(void)
 
 	while (1)
 	{
-		if (isatty(STDIN_FILENO))
+		if (isatty(STDIN_FILENO)) /*checks whether the function is in interactive mode*/
 			printf("$ ");
-		read = getline(&line, &length, stdin);
+		read = getline(&line, &length, stdin); /*stores the command and allocates memory*/
 
 		if (read == -1)
 		{
-			break;
+			break; /*stops the function*/
 		}
 		if (read == 1)
 		{
 			continue;
 		}
-		argv = tokenize_command(line);
+		argv = tokenize_command(line); /*creates a copy of the command with the arguments*/
 
 		if (argv != NULL)
 		{
-			execute_command(argv);
+			execute_command(argv); /*executes the command typed by the user*/
 		}
+		free(argv);
+		free(line);
 	}
-	free(argv);
-	free(line);
 	return (0);
 }
