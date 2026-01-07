@@ -1,5 +1,7 @@
 # <p align="center">Project C - Simple Shell</p>
 
+![C langage logo](C_Programming_Language.png)
+
 ------
 Description
 ------
@@ -21,9 +23,11 @@ To compil this program it is necessary to use GCC (GNU Compiler Collection) 20.0
 Compilation
 ------
 
-The command to compil the program :
+The command to compil the program :  
 
+```
 gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
+```
 
 ------
 Examples
@@ -62,7 +66,7 @@ Flowchart
 ![Flowchart simple shell final drawio](https://github.com/TonyHolby/holbertonschool-simple_shell/assets/159525275/71ae1fa8-52dd-4285-8fa1-5f77f784559a)
 
 ------
-Authors
 
-Rosario GLE
+Authors:  
+Rosario GLE  
 Tony NEMOUTHE
